@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.log
+*.sqlite3
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Docker
+*.pid
+*.tar
+*.lock
+*.db
+
+# Pytest / Coverage
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.idea/
+*.iml
+
+# Jupyter (if used accidentally)
+.ipynb_checkpoints/
