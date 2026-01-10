@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import TextareaAutosize from "react-textarea-autosize";
-import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   fetchDiscussionHistory,
@@ -11,11 +8,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/state/store";
+import ChatInput from "./ChatInput";
 
 // This component IS the "children"
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>();
-  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const discussionId = useSelector(
     (state: RootState) => state.discussions.current
@@ -41,9 +38,7 @@ const Chat = () => {
     loadHistory();
   }, [discussionId]);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
+  const sendMessage = async (input: string) => {
     setIsLoading(true);
     try {
       const update = await sendMessageToBackend(discussionId, input, "gemini");
@@ -53,14 +48,6 @@ const Chat = () => {
       console.error("Error sending message", error);
     } finally {
       setIsLoading(false);
-      setInput("");
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
     }
   };
 
@@ -126,30 +113,8 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <div className="flex-none flex flex-row justify-start items-end p-2">
-        <TextareaAutosize
-          id="textarea"
-          value={input}
-          autoCapitalize="sentences"
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type your message here"
-          className="w-full resize-none p-2 border-2 border-b-secondary rounded-md size-16 bg-secondary"
-          rows={1}
-          minRows={1}
-          maxRows={6}
-          disabled={isLoading}
-        />
-        <div className="w-2"></div>
-        <Button
-          type="submit"
-          className="rounded-full h-11"
-          disabled={isLoading}
-          onClick={sendMessage}
-        >
-          <Send size={16} />
-        </Button>
-      </div>
+
+      <ChatInput onSendMessage={sendMessage} isLoading={isLoading} />
     </div>
   );
 };
