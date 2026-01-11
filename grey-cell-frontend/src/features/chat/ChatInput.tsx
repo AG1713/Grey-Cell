@@ -25,7 +25,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
   };
 
   return (
-    <div className="flex-none flex flex-row justify-start items-end p-2">
+    <div className="flex-none flex flex-row justify-center items-end p-2">
       <TextareaAutosize
         id="textarea"
         value={input}
@@ -33,7 +33,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Type your message here"
-        className="w-full resize-none p-2 border-2 border-b-secondary rounded-md size-16 bg-secondary"
+        className="w-full max-w-3xl resize-none p-2 border-2 border-b-secondary rounded-md bg-secondary"
         rows={1}
         minRows={1}
         maxRows={6}

@@ -53,12 +53,11 @@ const Chat = () => {
 
   return (
     <div className="bg-background text-foreground flex flex-col h-full w-full overflow-hidden">
-      <div className="flex-none bg-background text-foreground flex justify-center border-border border-b p-4">
+      <div className="w-full flex-none bg-background text-foreground flex justify-center border-border border-b p-4">
         <p>{discussion.name}</p>
       </div>
-
       <div
-        className="flex-1 overflow-y-auto flex flex-col-reverse gap-2 px-4
+        className="flex-1 overflow-y-auto flex flex-col-reverse items-center gap-2 px-4
           [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-secondary
@@ -66,7 +65,11 @@ const Chat = () => {
           dark:[&::-webkit-scrollbar-thumb]:bg-muted"
       >
         {messages?.map((item, index) => (
-          <div key={item.id} ref={index === 1 ? scrollRef : null}>
+          <div
+            className="w-full max-w-3xl"
+            key={item.id}
+            ref={index === 1 ? scrollRef : null}
+          >
             {item.author === "user" && (
               <div className="flex justify-end">
                 <span className="card bg-secondary rounded-md p-2 whitespace-pre-wrap">
@@ -79,8 +82,8 @@ const Chat = () => {
             {item.author === "gemini" && (
               <div
                 className="
-                  prose prose-zinc dark:prose-invert
                   max-w-none
+                  prose prose-zinc dark:prose-invert
 
                   prose-pre:bg-muted
                   prose-pre:rounded-md
