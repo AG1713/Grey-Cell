@@ -14,8 +14,8 @@ import ChatInput from "./ChatInput";
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>();
   const [isLoading, setIsLoading] = useState(false);
-  const discussionId = useSelector(
-    (state: RootState) => state.discussions.current
+  const discussion = useSelector(
+    (state: RootState) => state.discussions.discussion
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -29,19 +29,19 @@ const Chat = () => {
   useEffect(() => {
     const loadHistory = async () => {
       try {
-        const history = await fetchDiscussionHistory(discussionId);
+        const history = await fetchDiscussionHistory(discussion.id);
         setMessages(history);
       } catch (error) {
         console.error("Failed to fetch history:", error);
       }
     };
     loadHistory();
-  }, [discussionId]);
+  }, [discussion.id]);
 
   const sendMessage = async (input: string) => {
     setIsLoading(true);
     try {
-      const update = await sendMessageToBackend(discussionId, input, "gemini");
+      const update = await sendMessageToBackend(discussion.id, input, "gemini");
 
       setMessages((prev) => [...update, ...(prev || [])]);
     } catch (error) {
@@ -54,7 +54,7 @@ const Chat = () => {
   return (
     <div className="bg-background text-foreground flex flex-col h-full w-full overflow-hidden">
       <div className="flex-none bg-background text-foreground flex justify-center border-border border-b p-4">
-        <p>Discussion title</p>
+        <p>{discussion.name}</p>
       </div>
 
       <div

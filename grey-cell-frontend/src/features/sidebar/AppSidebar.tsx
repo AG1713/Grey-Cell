@@ -18,6 +18,7 @@ import {
   setCurrentDiscussion,
 } from "@/state/discussion/discussionSlice";
 import CreateDiscussionDialog from "./CreateDiscussionDialog";
+import type { Discussion } from "../chat/api/discussionService";
 
 const AppSidebar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -45,8 +46,8 @@ const AppSidebar = () => {
     }
   };
 
-  const setDiscussion = (id: number) => {
-    dispatch(setCurrentDiscussion(id));
+  const setDiscussion = (discussion: Discussion) => {
+    dispatch(setCurrentDiscussion(discussion));
   };
 
   return (
@@ -69,13 +70,13 @@ const AppSidebar = () => {
               </label>
             </SidebarMenu>
             <SidebarMenu>
-              {discussions.map((item) => (
-                <SidebarMenuItem key={item.name}>
+              {discussions.map((discussion) => (
+                <SidebarMenuItem key={discussion.name}>
                   <SidebarMenuButton
                     asChild
-                    onClick={() => setDiscussion(item.id)}
+                    onClick={() => setDiscussion(discussion)}
                   >
-                    <span>{item.name}</span>
+                    <span>{discussion.name}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

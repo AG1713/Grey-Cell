@@ -2,12 +2,12 @@ import { createDiscussion, getAllDiscussions, type Discussion } from "@/features
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface DiscussionsState {
-    current: number
+    discussion: Discussion
     list: Discussion[]
 }
 
 const initialState: DiscussionsState = {
-    current: 1,
+    discussion: {id:1, name:""},
     list: []
 }
 
@@ -30,8 +30,8 @@ const discussionSlice = createSlice({
     name: "discussions",
     initialState: initialState,
     reducers:{
-        setCurrentDiscussion: (state, action: PayloadAction<number>) => {
-            state.current = action.payload
+        setCurrentDiscussion: (state, action: PayloadAction<Discussion>) => {
+            state.discussion = action.payload
         }
 
     },
