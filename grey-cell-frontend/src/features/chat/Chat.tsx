@@ -6,9 +6,11 @@ import {
 } from "./api/chatService";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/state/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/state/store";
 import ChatInput from "./ChatInput";
+import { useParams } from "react-router-dom";
+import { getCurrentDiscussion } from "@/state/discussion/discussionSlice";
 
 // This component IS the "children"
 const Chat = () => {
@@ -17,6 +19,8 @@ const Chat = () => {
   const discussion = useSelector(
     (state: RootState) => state.discussions.discussion
   );
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -29,6 +33,7 @@ const Chat = () => {
   useEffect(() => {
     const loadHistory = async () => {
       try {
+        dispatch(getCurrentDiscussion(Number(id)));
         const history = await fetchDiscussionHistory(discussion.id);
         setMessages(history);
       } catch (error) {

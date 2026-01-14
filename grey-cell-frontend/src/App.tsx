@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Bot, User, Plus } from "lucide-react"; // Icons
-import Discussions from "./features/sidebar/Discussions";
+import Layout from "./features/sidebar/Layout";
 import Chat from "./features/chat/Chat";
 
 export default function App() {
@@ -38,11 +38,7 @@ export default function App() {
     }, 1000);
   };
 
-  return (
-    <Discussions>
-      <Chat />
-    </Discussions>
-  );
+  return <div></div>;
 
   return (
     // MAIN CONTAINER: Full height (h-screen), dark background

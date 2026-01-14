@@ -1,4 +1,4 @@
-import { createDiscussion, getAllDiscussions, type Discussion } from "@/features/chat/api/discussionService";
+import { createDiscussion, getAllDiscussions, getDiscussion, type Discussion } from "@/features/chat/api/discussionService";
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface DiscussionsState {
@@ -26,6 +26,13 @@ export const createNewDiscussion = createAsyncThunk(
     }
 )
 
+export const getCurrentDiscussion = createAsyncThunk(
+    "discussions/getDiscussion",
+    async (id: number) => {
+        return getDiscussion(id)
+    }
+)
+
 const discussionSlice = createSlice({
     name: "discussions",
     initialState: initialState,
@@ -48,6 +55,12 @@ const discussionSlice = createSlice({
         })
         .addCase(createNewDiscussion.fulfilled, () => {
             console.log("New discussion created")
+        })
+
+        builder.addCase(getCurrentDiscussion.pending, () => {
+            console.log("Fetching discussion...")
+        }).addCase(getCurrentDiscussion.fulfilled, () => {
+            console.log("Discussion fetched")
         })
 
     }

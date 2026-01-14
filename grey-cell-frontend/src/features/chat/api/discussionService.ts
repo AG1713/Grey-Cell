@@ -15,3 +15,8 @@ export const getAllDiscussions = async () => {
     const response = await api.get<Discussion[]>("/discussions/")
     return response.data
 }
+
+export const getDiscussion = async (discussionId: number) => {
+    const response = await api.get<Discussion>(`/discussions/${discussionId}`)
+    return response.data
+}

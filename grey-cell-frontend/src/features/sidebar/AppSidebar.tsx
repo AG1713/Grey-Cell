@@ -17,8 +17,9 @@ import {
   getDiscussions,
   setCurrentDiscussion,
 } from "@/state/discussion/discussionSlice";
-import CreateDiscussionDialog from "./CreateDiscussionDialog";
+import CreateDiscussionDialog from "../discussions/CreateDiscussionDialog";
 import type { Discussion } from "../chat/api/discussionService";
+import { Link } from "react-router-dom";
 
 const AppSidebar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -54,6 +55,17 @@ const AppSidebar = () => {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem key={"models"}>
+                <SidebarMenuButton asChild onClick={() => {}}>
+                  <span>Models</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
           <SidebarGroupLabel>Discussions</SidebarGroupLabel>
           <CreateDiscussionDialog />
           <SidebarGroupContent>
@@ -76,7 +88,9 @@ const AppSidebar = () => {
                     asChild
                     onClick={() => setDiscussion(discussion)}
                   >
-                    <span>{discussion.name}</span>
+                    <Link to={`/discussions/${discussion.id}`}>
+                      <span>{discussion.name}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
